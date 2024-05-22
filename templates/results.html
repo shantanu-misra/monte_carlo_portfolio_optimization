@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimization Results</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 2px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Optimization Results</h1>
+
+    <h2>Metadata</h2>
+    <table>
+        <tr>
+            <td>Number of Portfolios Tested</td>
+            <td>{{ metadata.num_portfolios }}</td>
+        </tr>
+        <tr>
+            <td>Minimum Number of Stocks</td>
+            <td>{{ metadata.min_stocks }}</td>
+        </tr>
+        <tr>
+            <td>Number of Stocks Fed In</td>
+            <td>{{ metadata.num_stocks }}</td>
+        </tr>
+    </table>
+
+    <h2>Minimum Risk Portfolio</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Metric</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Stocks</td>
+                <td>
+                    <ul>
+                        {% for stock, weight in min_risk.Stocks.items() %}
+                            <li>{{ stock }} - {{ weight }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Total Return</td>
+                <td>{{ min_risk.TotalReturn }}</td>
+            </tr>
+            <tr>
+                <td>Return (annualized)</td>
+                <td>{{ min_risk.Return }}</td>
+            </tr>
+            <tr>
+                <td>Risk</td>
+                <td>{{ min_risk.Risk }}</td>
+            </tr>
+            <tr>
+                <td>Sharpe Ratio</td>
+                <td>{{ min_risk.SharpeRatio }}</td>
+            </tr>
+            <tr>
+                <td>Value at Risk (VaR_95)</td>
+                <td>{{ min_risk.VaR_95 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Maximum Return Portfolio</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Metric</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Stocks</td>
+                <td>
+                    <ul>
+                        {% for stock, weight in max_return.Stocks.items() %}
+                            <li>{{ stock }} - {{ weight }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Total Return</td>
+                <td>{{ max_return.TotalReturn }}</td>
+            </tr>
+            <tr>
+                <td>Return (annualized)</td>
+                <td>{{ max_return.Return }}</td>
+            </tr>
+            <tr>
+                <td>Risk</td>
+                <td>{{ max_return.Risk }}</td>
+            </tr>
+            <tr>
+                <td>Sharpe Ratio</td>
+                <td>{{ max_return.SharpeRatio }}</td>
+            </tr>
+            <tr>
+                <td>Value at Risk (VaR_95)</td>
+                <td>{{ max_return.VaR_95 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Efficient Frontier</h2>
+    <img src="{{ plot_url }}" alt="Efficient Frontier">
+</body>
+</html>
